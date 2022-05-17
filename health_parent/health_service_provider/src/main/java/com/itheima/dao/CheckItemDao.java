@@ -8,7 +8,16 @@ import com.itheima.pojo.CheckItem;
  */
 public interface CheckItemDao {
 
+    /**
+     * 插入一条新数据
+     * @param checkItem
+     */
     public void add(CheckItem checkItem);
 
-    Page<CheckItem> selectByQuery(String queryString);
+    /**
+     * 根据条件查询CheckItem（code和name）
+     * @param queryString
+     * @return
+     */
+    public Page<CheckItem> selectByQuery(String queryString);
 }

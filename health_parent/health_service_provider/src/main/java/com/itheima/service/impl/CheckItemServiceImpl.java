@@ -21,11 +21,20 @@ public class CheckItemServiceImpl implements CheckItemService {
     @Autowired
     private CheckItemDao checkItemDao;
 
+    /**
+     * 插入一条新数据
+     * @param checkItem
+     */
     @Override
     public void add(CheckItem checkItem) {
         checkItemDao.add(checkItem);
     }
 
+    /**
+     * 分页查询
+     * @param queryPageBean
+     * @return
+     */
     @Override
     public PageResult pageQuery(QueryPageBean queryPageBean) {
         PageHelper.startPage(queryPageBean.getCurrentPage(),queryPageBean.getPageSize());
