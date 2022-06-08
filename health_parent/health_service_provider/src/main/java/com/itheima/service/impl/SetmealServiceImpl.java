@@ -28,7 +28,7 @@ public class SetmealServiceImpl implements SetmealService {
 
     @Override
     public void add(Setmeal setmeal, Integer[] checkgroupIds) {
-        // 先插入setmeal表，再插入setmeal_checkgroup表
+        // 先插入setmeal表，再插入setmeal_checkgroup 表
         setmealDao.add(setmeal);
         if (checkgroupIds != null && checkgroupIds.length > 0){
             setSetmealAndCheckGroup(setmeal.getId(),checkgroupIds);
