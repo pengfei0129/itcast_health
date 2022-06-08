@@ -12,6 +12,8 @@ import com.itheima.service.CheckItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * 检查项服务
  */
@@ -44,6 +46,30 @@ public class CheckItemServiceImpl implements CheckItemService {
         }
         Page<CheckItem> page =  checkItemDao.selectByQuery(queryString);
         return new PageResult(page.getTotal(),page.getResult());
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        long count = checkItemDao.findCountByCheckItemId(id);
+        if (count > 0){
+            new RuntimeException("有关联检查组存在，需要先删除关联检查组");
+        }
+        checkItemDao.deleteById(id);
+    }
+
+    @Override
+    public CheckItem findById(Integer id) {
+        return checkItemDao.findById(id);
+    }
+
+    @Override
+    public void edit(CheckItem checkItem) {
+        checkItemDao.edit(checkItem);
+    }
+
+    @Override
+    public List<CheckItem> findAll() {
+        return checkItemDao.findAll();
     }
 
 }
