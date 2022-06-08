@@ -27,8 +27,8 @@ public class SetmealController {
     @Reference
     private SetmealService setmealService;
 
-//    @Autowired
-//    private JedisPool jedisPool ;
+    @Autowired
+    private JedisPool jedisPool ;
 
     // 文件上传
     @RequestMapping("/upload")
@@ -44,7 +44,7 @@ public class SetmealController {
             Result result =  new Result(true , MessageConstant.PIC_UPLOAD_SUCCESS,fileName);
             result.setData(fileName);
             // 将上传图片名称存入Redis，基于Redis的Set集合
-//            jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_RESOURCES,fileName);
+            jedisPool.getResource().sadd(RedisConstant.SETMEAL_PIC_RESOURCES,fileName);
             return result;
         } catch (IOException e) {
             e.printStackTrace();

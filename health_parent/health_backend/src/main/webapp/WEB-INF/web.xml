@@ -28,7 +28,9 @@
     <!-- 指定加载的配置文件 ，通过参数contextConfigLocation加载 -->
     <init-param>
       <param-name>contextConfigLocation</param-name>
-      <param-value>classpath:springmvc.xml</param-value>
+<!--      <param-value>classpath:springmvc.xml</param-value>-->
+      <!-- 修改后可以扫描到 spring-redis.xml 包 -->
+      <param-value>classpath*:spring*.xml</param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>

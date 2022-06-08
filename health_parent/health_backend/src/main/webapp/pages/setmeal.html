@@ -82,7 +82,7 @@
                         <el-button type="primary" class="butT" @click="handleCreate()">新建</el-button>
                     </div>
                     <el-table size="small" current-row-key="id" :data="dataList" stripe highlight-current-row>
-                        <el-table-column type="index" align="center" label="序号"></el-table-column>
+                        <el-table-column type="index" :index="indexMethod" align="center" label="序号"></el-table-column>
                         <el-table-column prop="code" label="套餐编码" align="center"></el-table-column>
                         <el-table-column prop="name" label="套餐名称" align="center"></el-table-column>
                         <el-table-column label="适用性别" align="center">
@@ -236,7 +236,7 @@
                 activeName:'first',//添加/编辑窗口Tab标签名称
                 pagination: {//分页相关属性
                     currentPage: 1,
-                    pageSize:3,
+                    pageSize:8,
                     total:0,
                     queryString:null,
                 },
@@ -276,7 +276,7 @@
                 //添加
                 handleAdd () {
                     axios.post("/setmeal/add.do?checkgroupIds=" + this.checkgroupIds,this.formData).then((res)=>{
-                        this.dialogFormVisible4Edit = false ;
+                        this.dialogFormVisible = false ;
                         if (res.data.flag){
                         this.$message.success(res.data.message);
                         }else {
@@ -321,6 +321,10 @@
                 handleCurrentChange(currentPage) {
                     this.pagination.currentPage = currentPage ;
                     this.findPage();
+                },
+                // 序号递增
+                indexMethod(index){
+                    return index + ((this.pagination.currentPage - 1) * this.pagination.pageSize) + 1 ;
                 }
             }
         })
