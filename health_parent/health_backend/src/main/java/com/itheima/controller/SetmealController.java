@@ -6,6 +6,7 @@ import com.itheima.constant.RedisConstant;
 import com.itheima.entity.PageResult;
 import com.itheima.entity.QueryPageBean;
 import com.itheima.entity.Result;
+import com.itheima.pojo.CheckGroup;
 import com.itheima.pojo.Setmeal;
 import com.itheima.service.SetmealService;
 import com.itheima.utils.QiniuUtils;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import redis.clients.jedis.JedisPool;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -67,5 +69,49 @@ public class SetmealController {
     public PageResult findPage(@RequestBody QueryPageBean queryPageBean){
         PageResult result = setmealService.findPage(queryPageBean);
         return new PageResult(result.getTotal(),result.getRows());
+    }
+
+    @RequestMapping("/findById")
+    public Result findById(Integer id){
+        try {
+            Setmeal setmeal = setmealService.findById(id);
+            return new Result(true,MessageConstant.QUERY_SETMEAL_SUCCESS,setmeal);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.QUERY_SETMEAL_FAIL);
+        }
+    }
+
+    @RequestMapping("/findCheckGroupIdsBySetmealId")
+    public Result findCheckGroupIdsBySetmealId(Integer id){
+        try {
+            List<Integer> checkGroupIds = setmealService.findCheckGroupIdsBySetmealId(id);
+            return new Result(true,MessageConstant.QUERY_SETMEAL_SUCCESS,checkGroupIds);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.QUERY_SETMEAL_FAIL);
+        }
+    }
+
+    @RequestMapping("/deleteSetmeal")
+    public Result deleteSetmeal(Integer id){
+        try {
+            setmealService.deleteSetmeal(id);
+            return new Result(true,MessageConstant.DELETE_CHECKGROUP_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.DELETE_CHECKGROUP_FAIL);
+        }
+    }
+
+    @RequestMapping("/edit")
+    public Result edit(@RequestBody Setmeal setmeal, Integer[] checkgroupIds){
+        try {
+            setmealService.edit(setmeal,checkgroupIds);
+            return new Result(true,MessageConstant.EDIT_SETMEAL_SUCCESS);
+        }catch (Exception e){
+            e.printStackTrace();
+            return new Result(false,MessageConstant.EDIT_SETMEAL_FAIL);
+        }
     }
 }

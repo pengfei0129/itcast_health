@@ -287,7 +287,7 @@
                         if (res.data.flag){
                             this.$message.success(res.data.message);
                         }else{
-                            this.$message.success(res.data.message);
+                            this.$message.error(res.data.message);
                         }
                     }).finally(()=>{
                         this.findPage();
@@ -344,7 +344,7 @@
                 },
                 // 弹出编辑窗口
                 handleUpdate(row) {
-                    axios.get("/checkgroup/.do?id=" + row.id).then((res) => {
+                    axios.get("/checkgroup/findById.do?id=" + row.id).then((res) => {
                         if (res.data.flag){
                             //弹出编辑窗口
                             this.dialogFormVisible4Edit = true;

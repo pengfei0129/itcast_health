@@ -42,6 +42,7 @@ public class CheckItemServiceImpl implements CheckItemService {
         PageHelper.startPage(queryPageBean.getCurrentPage(),queryPageBean.getPageSize());
         String queryString = queryPageBean.getQueryString();
         if (queryString != null){
+            queryString = queryString.trim();
             queryString = "%" + queryString + "%" ;
         }
         Page<CheckItem> page =  checkItemDao.selectByQuery(queryString);
