@@ -8,7 +8,10 @@ import com.itheima.service.SetmealService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service(interfaceClass = OrderSettingService.class)
 @Transactional
@@ -28,5 +31,25 @@ public class OrderSettingServiceImpl implements OrderSettingService {
                 }
             }
         }
+    }
+
+    @Override
+    public List<Map> getOrderSettingByMonth(String date) {
+        String begin = date + "-1" ;
+        String end = date + "-31" ;
+        Map<String, String> map = new HashMap<>();
+        map.put("begin",begin);
+        map.put("end",end);
+        List<OrderSetting> list = orderSettingDao.getOrderSettingByMonth(map);
+
+        List<Map> result = new ArrayList<>();
+        list.forEach(e -> {
+            Map<String, Object> hashMap = new HashMap<>();
+            hashMap.put("date",e.getOrderDate().getDate());
+            hashMap.put("number",e.getNumber());
+            hashMap.put("reservations",e.getReservations());
+            result.add(hashMap);
+        });
+        return result;
     }
 }
