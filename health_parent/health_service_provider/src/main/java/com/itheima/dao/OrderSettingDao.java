@@ -14,5 +14,5 @@ public interface OrderSettingDao {
 
     public long findCountByOrderDate(Date orderDate);
 
-    public List<OrderSetting> getOrderSettingByMonth(Map<String, String> map);
+    public List<OrderSetting> getOrderSettingByMonth(Map date);
 }
